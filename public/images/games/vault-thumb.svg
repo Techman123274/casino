@@ -1,0 +1,49 @@
+<svg width="640" height="360" viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-vault" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#001a1a;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#020202;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="glow-vault" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" style="stop-color:#00FF41;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#00FF41;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg-vault)"/>
+  <rect width="640" height="360" fill="url(#glow-vault)"/>
+  <!-- Vault tower  3 nodes x 5 floors shown -->
+  <g transform="translate(235,50)">
+    <!-- Floor 5 (top) -->
+    <rect x="0" y="0" width="46" height="26" rx="4" fill="#00FF41" opacity="0.05" stroke="#00FF41" stroke-width="0.5" stroke-opacity="0.15"/>
+    <rect x="56" y="0" width="46" height="26" rx="4" fill="#00FF41" opacity="0.05" stroke="#00FF41" stroke-width="0.5" stroke-opacity="0.15"/>
+    <rect x="112" y="0" width="46" height="26" rx="4" fill="#00FF41" opacity="0.05" stroke="#00FF41" stroke-width="0.5" stroke-opacity="0.15"/>
+    <!-- Floor 4 -->
+    <rect x="0" y="34" width="46" height="26" rx="4" fill="#00FF41" opacity="0.08" stroke="#00FF41" stroke-width="0.5" stroke-opacity="0.2"/>
+    <rect x="56" y="34" width="46" height="26" rx="4" fill="#00FF41" opacity="0.08" stroke="#00FF41" stroke-width="0.5" stroke-opacity="0.2"/>
+    <rect x="112" y="34" width="46" height="26" rx="4" fill="#00FF41" opacity="0.08" stroke="#00FF41" stroke-width="0.5" stroke-opacity="0.2"/>
+    <!-- Floor 3 -->
+    <rect x="0" y="68" width="46" height="26" rx="4" fill="#00FF41" opacity="0.12" stroke="#00FF41" stroke-width="0.5" stroke-opacity="0.3"/>
+    <rect x="56" y="68" width="46" height="26" rx="4" fill="rgba(255,68,68,0.15)" stroke="#ff4444" stroke-width="1" stroke-opacity="0.4"/>
+    <rect x="112" y="68" width="46" height="26" rx="4" fill="#00FF41" opacity="0.12" stroke="#00FF41" stroke-width="0.5" stroke-opacity="0.3"/>
+    <!-- Floor 2 -->
+    <rect x="0" y="102" width="46" height="26" rx="4" fill="#00FF41" opacity="0.18" stroke="#00FF41" stroke-width="1" stroke-opacity="0.4"/>
+    <rect x="56" y="102" width="46" height="26" rx="4" fill="#00FF41" opacity="0.18" stroke="#00FF41" stroke-width="1" stroke-opacity="0.4"/>
+    <rect x="112" y="102" width="46" height="26" rx="4" fill="#00FF41" opacity="0.18" stroke="#00FF41" stroke-width="1" stroke-opacity="0.4"/>
+    <!-- Floor 1 (current)  highlighted -->
+    <rect x="0" y="136" width="46" height="26" rx="4" fill="#00FF41" opacity="0.25" stroke="#00FF41" stroke-width="1.5" stroke-opacity="0.6"/>
+    <rect x="56" y="136" width="46" height="26" rx="4" fill="#00FF41" opacity="0.25" stroke="#00FF41" stroke-width="1.5" stroke-opacity="0.6"/>
+    <rect x="112" y="136" width="46" height="26" rx="4" fill="#00FF41" opacity="0.25" stroke="#00FF41" stroke-width="1.5" stroke-opacity="0.6"/>
+    <!-- Node labels -->
+    <text x="23" y="153" font-family="monospace" font-size="7" fill="#00FF41" opacity="0.5" text-anchor="middle">./hack</text>
+    <text x="79" y="153" font-family="monospace" font-size="7" fill="#00FF41" opacity="0.5" text-anchor="middle">./hack</text>
+    <text x="135" y="153" font-family="monospace" font-size="7" fill="#00FF41" opacity="0.5" text-anchor="middle">./hack</text>
+    <!-- Firewall indicator -->
+    <text x="79" y="85" font-family="monospace" font-size="7" fill="#ff4444" opacity="0.6" text-anchor="middle"> </text>
+    <!-- Checkmarks on passed floors -->
+    <text x="23" y="119" font-family="system-ui" font-size="9" fill="#00FF41" opacity="0.5" text-anchor="middle"></text>
+    <text x="135" y="119" font-family="system-ui" font-size="9" fill="#00FF41" opacity="0.5" text-anchor="middle"></text>
+  </g>
+  <!-- Terminal prompt -->
+  <text x="320" y="240" font-family="monospace" font-size="10" fill="#00FF41" opacity="0.25" text-anchor="middle">root@vault ~$ ./breach --floor=3</text>
+  <text x="320" y="290" font-family="system-ui,sans-serif" font-size="11" fill="#00BFFF" opacity="0.4" text-anchor="middle" letter-spacing="4">HACK THE VAULT</text>
+</svg>

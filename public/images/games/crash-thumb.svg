@@ -1,0 +1,19 @@
+<svg width="640" height="360" viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-crash" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#020202;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="glow-crash" cx="70%" cy="30%" r="50%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg-crash)"/>
+  <rect width="640" height="360" fill="url(#glow-crash)"/>
+  <polyline points="80,280 200,240 300,200 380,140 440,90 500,60" stroke="#3b82f6" stroke-width="2.5" fill="none" opacity="0.7"/>
+  <polyline points="500,60 520,30" stroke="#ef4444" stroke-width="2.5" fill="none" opacity="0.8" stroke-dasharray="6,4"/>
+  <circle cx="500" cy="60" r="5" fill="#FFD700" opacity="0.8"/>
+  <text x="500" y="50" font-family="monospace" font-size="14" fill="#FFD700" opacity="0.7" text-anchor="middle">2.4x</text>
+  <text x="320" y="320" font-family="system-ui,sans-serif" font-size="11" fill="#3b82f6" opacity="0.4" text-anchor="middle" letter-spacing="4">LUNAR CRASH</text>
+</svg>

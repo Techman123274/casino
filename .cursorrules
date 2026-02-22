@@ -1,0 +1,7 @@
+# Rapid Role AI Instructions
+- Always use Next.js 15 App Router and Tailwind CSS 4.0.
+- Aesthetic: "Cyber-Luxe". Deep blacks (#020202), Electric Gold (#FFD700), Matrix Green (#00FF41).
+- Use Framer Motion for all transitions. No static page loads.
+- Components must be "Glassmorphic": semi-transparent, 1px borders, heavy backdrop-blur.
+- Before writing any code, check @RAPID_ROLE_SPECS.md for brand consistency.
+- Use Lucide-React for thin-stroke futuristic icons.
