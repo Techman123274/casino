@@ -27,11 +27,30 @@ html {
   font-family: var(--font-display);
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 215, 0, 0.2) transparent;
+  /* Prevent iOS pull-to-refresh and rubber-band bouncing */
+  overscroll-behavior-y: contain;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* iOS input zoom fix: font-size >= 16px prevents Safari auto-zoom */
+input, select, textarea {
+  font-size: 16px;
+}
+
+/* Safe-area insets for notch/home-bar devices */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
 }
 
 ::-webkit-scrollbar {
@@ -396,4 +415,78 @@ body {
 
 .bento-hud-3col {
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* ═══ DEPOSIT GOLDEN PULSE ═══ */
+@keyframes deposit-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(255, 215, 0, 0.2); }
+  50% { box-shadow: 0 0 24px rgba(255, 215, 0, 0.45), 0 0 48px rgba(255, 215, 0, 0.15); }
+}
+
+.deposit-pulse {
+  animation: deposit-pulse 2s ease-in-out infinite;
+}
+
+.deposit-pulse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 60%
+  );
+  animation: deposit-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes deposit-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ═══ SAFARI GPU + MOBILE OPTIMIZATIONS ═══ */
+
+.multiplier-odometer {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Haptic pulse — visual fallback when vibration API unavailable */
+@keyframes haptic-pulse {
+  0% { transform: scale(1); }
+  25% { transform: scale(0.96); }
+  50% { transform: scale(1.04); }
+  75% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+.haptic-pulse {
+  animation: haptic-pulse 0.2s ease-in-out;
+}
+
+/* Mobile bottom nav glassmorphic bar */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(2, 2, 2, 0.85);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* PWA standalone mode — hide mobile Safari UI elements */
+@media (display-mode: standalone) {
+  .pwa-only-hidden {
+    display: none !important;
+  }
 }

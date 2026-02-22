@@ -3,6 +3,7 @@
 import { TopNav } from "@/components/TopNav";
 import { Sidebar } from "@/components/Sidebar";
 import { TerminalFeed } from "@/components/TerminalFeed";
+import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 
@@ -14,11 +15,14 @@ export default function DashboardLayout({
   const pathname = usePathname();
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="flex h-screen flex-col overflow-hidden safe-area-top">
       <TopNav />
 
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar />
+        {/* Desktop sidebar — hidden on mobile */}
+        <div className="hidden md:block">
+          <Sidebar />
+        </div>
 
         <AnimatePresence mode="wait">
           <motion.main
@@ -27,7 +31,7 @@ export default function DashboardLayout({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="flex-1 overflow-y-auto hide-scrollbar"
+            className="flex-1 overflow-y-auto hide-scrollbar pb-20 md:pb-0"
           >
             {children}
           </motion.main>
@@ -37,6 +41,9 @@ export default function DashboardLayout({
           <TerminalFeed />
         </div>
       </div>
+
+      {/* Mobile bottom nav — visible only on small screens */}
+      <MobileBottomNav />
     </div>
   );
 }

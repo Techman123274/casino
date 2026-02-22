@@ -30,6 +30,10 @@ interface CrashState {
   serverSeed: string;
   roundId: number;
   countdown: number;
+  /** Server timestamp (ms epoch) when FLYING began — used for clock-sync */
+  flyStartedAt: number | null;
+  /** True once the server has confirmed the round is ready — prevents double-start */
+  roundReady: boolean;
 
   betAmount: number;
   autoCashout: number;
@@ -53,6 +57,8 @@ interface CrashState {
   setRoundId: (n: number) => void;
   setCountdown: (c: number) => void;
   setMilestone: (m: number) => void;
+  setFlyStartedAt: (t: number | null) => void;
+  setRoundReady: (r: boolean) => void;
 
   setBetAmount: (a: number) => void;
   setAutoCashout: (a: number) => void;
@@ -77,6 +83,8 @@ export const useCrashStore = create<CrashState>((set, get) => ({
   serverSeed: "",
   roundId: 0,
   countdown: 0,
+  flyStartedAt: null,
+  roundReady: false,
 
   betAmount: 100,
   autoCashout: 0,
@@ -105,6 +113,8 @@ export const useCrashStore = create<CrashState>((set, get) => ({
   setRoundId: (roundId) => set({ roundId }),
   setCountdown: (countdown) => set({ countdown }),
   setMilestone: (milestone) => set({ milestone }),
+  setFlyStartedAt: (flyStartedAt) => set({ flyStartedAt }),
+  setRoundReady: (roundReady) => set({ roundReady }),
 
   setBetAmount: (betAmount) => set({ betAmount: Math.max(1, betAmount) }),
   setAutoCashout: (autoCashout) => set({ autoCashout: Math.max(0, autoCashout) }),
@@ -134,6 +144,8 @@ export const useCrashStore = create<CrashState>((set, get) => ({
       multiplier: 1.0,
       crashPoint: 0,
       serverSeed: "",
+      flyStartedAt: null,
+      roundReady: false,
       hasBet: false,
       hasCashedOut: false,
       cashoutMultiplier: 0,

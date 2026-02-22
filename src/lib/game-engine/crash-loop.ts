@@ -83,6 +83,8 @@ export interface RoundSnapshot {
   phase: EnginePhase;
   seedHash: string;
   crashPoint: number;
+  /** Server timestamp when FLYING began (ms since epoch). Client syncs to this. */
+  flyStartedAt: number | null;
   players: {
     userId: string;
     username: string;
@@ -231,8 +233,17 @@ export function cashOut(
   if (!bet) return { ok: false, error: "No bet found" };
   if (bet.cashedOut) return { ok: false, error: "Already cashed out" };
 
-  // Server validates: multiplier can't exceed crash point
-  const mult = Math.min(clientMultiplier, round.crashPoint);
+  // High-precision server-side verification:
+  // Compute the true multiplier from the server clock, not the client claim.
+  const serverMult = getServerMultiplier();
+
+  // Already crashed? Reject.
+  if (serverMult >= round.crashPoint) {
+    return { ok: false, error: "Round already crashed" };
+  }
+
+  // Use the LOWER of client claim and server truth (prevents timing exploits)
+  const mult = Math.min(clientMultiplier, serverMult, round.crashPoint);
   if (mult < 1.0) return { ok: false, error: "Invalid multiplier" };
 
   const payout = Math.floor(bet.amount * mult * 100) / 100;
@@ -242,7 +253,7 @@ export function cashOut(
   bet.payout = payout;
 
   console.log(
-    `\x1b[32m[LUNAR CRASH]\x1b[0m ${bet.username} cashed out @ ${mult.toFixed(2)}x → +${payout} RC`
+    `\x1b[32m[LUNAR CRASH]\x1b[0m ${bet.username} cashed out @ ${mult.toFixed(2)}x (server: ${serverMult.toFixed(2)}x) → +${payout} RC`
   );
 
   return { ok: true, multiplier: mult, payout };
@@ -298,6 +309,7 @@ export function getRoundSnapshot(): RoundSnapshot {
     phase: round.phase,
     seedHash: round.seedHash,
     crashPoint: round.crashPoint,
+    flyStartedAt: round.flyStartedAt,
     players: Array.from(round.bets.values()).map((b) => ({
       userId: b.userId,
       username: b.username,
@@ -308,6 +320,17 @@ export function getRoundSnapshot(): RoundSnapshot {
       payout: b.payout,
     })),
   };
+}
+
+/**
+ * Server-authoritative multiplier at a given timestamp.
+ * Used to verify cashout requests against the server clock.
+ */
+export function getServerMultiplier(): number {
+  const round = getCurrentRound();
+  if (round.phase !== "FLYING" || !round.flyStartedAt) return 1.0;
+  const elapsed = (Date.now() - round.flyStartedAt) / 1000;
+  return Math.min(round.crashPoint, Math.exp(0.06 * elapsed));
 }
 
 export function getHistory(): number[] {

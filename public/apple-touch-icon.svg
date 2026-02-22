@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <rect width="180" height="180" rx="22" fill="#020202"/>
+  <rect x="4" y="4" width="172" height="172" rx="20" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.3"/>
+  <text x="90" y="118" text-anchor="middle" fill="#FFD700" font-family="Inter,system-ui,sans-serif" font-weight="900" font-size="81">R</text>
+</svg>
